@@ -1,4 +1,4 @@
-package oas.rest;
+package org.oas.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -11,6 +11,9 @@ import org.glassfish.jersey.server.model.ResourceMethod;
 
 @ApplicationPath("rest")
 public class OasResourceConfig extends ResourceConfig {
+	private static OasInflector in1 = new OasInflector("hello1");
+	private static OasInflector in2 = new OasInflector("hello2");
+
 	public OasResourceConfig() {
 		packages("oas.rest");
 
@@ -19,15 +22,21 @@ public class OasResourceConfig extends ResourceConfig {
 
         final ResourceMethod.Builder methodBuilder = resourceBuilder.addMethod("GET");
         methodBuilder.produces(MediaType.TEXT_PLAIN_TYPE)
-                .handledBy(new Inflector<ContainerRequestContext, String>() {
-
-            @Override
-            public String apply(ContainerRequestContext containerRequestContext) {
-                return "Hello World!";
-            }
-        });
+                .handledBy(in1);
 
         final Resource resource = resourceBuilder.build();
         registerResources(resource);
+	}
+
+	private static class OasInflector implements Inflector<ContainerRequestContext, String> {
+		private String hello;
+
+		public OasInflector(String hello) {
+			this.hello = hello;
+		}
+
+		public String apply(ContainerRequestContext containerRequestContext) {
+            return hello;
+		}
 	}
 }

@@ -1,4 +1,4 @@
-package oas.filter;
+package org.oas.filter;
 
 import java.io.IOException;
 
@@ -11,15 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class OasFilter implements Filter {
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public void doFilter(
 		ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
@@ -36,7 +28,7 @@ public class OasFilter implements Filter {
 				System.err.println("PathInfo: " + httpRequest.getPathInfo());
 				System.err.println("RequestURI: " + httpRequest.getRequestURI());
 				byte[] inputByteArray = ((MultiReadHttpServletRequest)requestWraper).getInputByteArray();
-				System.err.println(new ObjectMapper().writeValueAsString(new String(inputByteArray)));
+				System.err.println(new String(inputByteArray));
 			}
 		}
 	}
@@ -51,8 +43,13 @@ public class OasFilter implements Filter {
         return servletRequest;
 	}
 
-	@Override
-	public void init(FilterConfig arg0) throws ServletException {
+	public void destroy() {
 		// TODO Auto-generated method stub
+
+	}
+
+	public void init(FilterConfig filterConfig) throws ServletException {
+		// TODO Auto-generated method stub
+
 	}
 }
