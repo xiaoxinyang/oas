@@ -7,6 +7,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.oas.jaxb.Token;
+
 @Path("/v2.0")
 public class IdentityResource {
 	@GET
@@ -23,10 +25,13 @@ public class IdentityResource {
 	}
 
 	public class Tokens{
+		public String a = "2341234";
 		@POST
 		@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-		public String showVersion() {
-			return "asdf";
+		public Token showVersion() {
+			Token token = new Token();
+			token.getAny().add(new Tokens());
+			return token;
 		}
 	}
 }
