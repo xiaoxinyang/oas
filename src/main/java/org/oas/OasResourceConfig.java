@@ -1,4 +1,4 @@
-package org.oas.rest;
+package org.oas;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -15,7 +15,7 @@ public class OasResourceConfig extends ResourceConfig {
 	private static OasInflector in2 = new OasInflector("hello2");
 
 	public OasResourceConfig() {
-		packages("oas.rest");
+		packages("org.oas.resources");
 
         final Resource.Builder resourceBuilder = Resource.builder();
         resourceBuilder.path("helloworld");
@@ -35,6 +35,7 @@ public class OasResourceConfig extends ResourceConfig {
 			this.hello = hello;
 		}
 
+		@Override
 		public String apply(ContainerRequestContext containerRequestContext) {
             return hello;
 		}
